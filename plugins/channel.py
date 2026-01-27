@@ -30,10 +30,8 @@ CAPTION_LANGUAGES = [
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
 SILENTX_PREMIUM_UPDATE = """
-<b><u>{}</u></b> <code>{}</code>
-
 <code>━━━━━━━━━━━━━━━━━━</code>
-
+<b>🎬 Title</b>: {}  <code>{}</code>
 <b>🎭 Director</b>: {}
 <b>📅 Release</b>: {}
 <b>⭐ IMDb</b>: {}/10 (<code>{}</code> votes)
@@ -41,11 +39,11 @@ SILENTX_PREMIUM_UPDATE = """
 <b>🔈 Audio</b>: {}
 <b>📺 Format</b>: {}
 
+<b>⚡ Powered By @Hari_Moviez</b>
+
 <code>━━━━━━━━━━━━━━━━━━</code>
 
-📥 <a href='https://telegram.me/{}/?start=getfile-{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ғɪʟᴇ</a>
-
-<b>⚡ Powered By @Hari_Moviez</b>
+📥 <a href='https://telegram.me/{}/?start=getfile-{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ғɪʟᴇ 👈</a>
 
 <code>━━━━━━━━━━━━━━━━━━</code>"""
 
