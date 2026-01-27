@@ -23,12 +23,12 @@ BOT_TOKEN = environ.get('BOT_TOKEN', "")    # Bot token from @BotFather
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', True))
 
-PICS = (environ.get('PICS', 'https://i.ibb.co/GfqTZfK8/image.jpg')).split()  # Sample pic
+PICS = (environ.get('PICS', 'https://files.catbox.moe/eyuzub.jpg https://files.catbox.moe/gnsert.jpg https://files.catbox.moe/aiqmz9.jpg https://files.catbox.moe/9udnl8.jpg https://files.catbox.moe/u50gq9.jpg https://files.catbox.moe/zpd5jb.jpg https://files.catbox.moe/o7amv3.jpg https://files.catbox.moe/gcrw97.jpg https://files.catbox.moe/3a94m9.jpg')).split()  # Sample pic
 NOR_IMG = environ.get("NOR_IMG", "https://graph.org/file/e20b5fdaf217252964202.jpg")
 MELCOW_PHOTO = environ.get("MELCOW_PHOTO", "https://graph.org/file/56b5deb73f3b132e2bb73.jpg")
 SPELL_IMG = environ.get("SPELL_IMG", "https://graph.org/file/13702ae26fb05df52667c.jpg")
 SUBSCRIPTION = (environ.get('SUBSCRIPTION', 'https://graph.org/file/242b7f1b52743938d81f1.jpg'))
-FSUB_IMG = (environ.get('FSUB_IMG', 'https://graph.org/file/7478ff3eac37f4329c3d8.jpg https://graph.org/file/56b5deb73f3b132e2bb73.jpg')).split()  # Fsub pic
+FSUB_IMG = (environ.get('FSUB_IMG', 'https://files.catbox.moe/gnsert.jpg)).split()  # Fsub pic
 
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '7253187871 6566268406').split()] # Replace with the actual admin ID(s) to add
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002447436146 -1002515386092 -1002082701021 -1001603505179 -1002578416876 -1002273978945').split()] 
