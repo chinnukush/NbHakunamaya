@@ -30,22 +30,22 @@ CAPTION_LANGUAGES = [
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
 SILENTX_PREMIUM_UPDATE = """
-<code>━━━━━━━━━━━━━━━━━━</code>
-<b>🎬 Title</b>: {}  <code>{}</code>
-<b>🎭 Director</b>: {}
-<b>📅 Release</b>: {}
-<b>⭐ IMDb</b>: {}/10 (<code>{}</code> votes)
-<b>🏷️ Genres</b>: {}
-<b>🔈 Audio</b>: {}
-<b>📺 Format</b>: {}
 
-<b>⚡ Powered By @Hari_Moviez</b>
+<b>🎬 ᴛɪᴛʟᴇ</b>: {}  <code>{}</code>
+<b>🎭 ᴅɪʀᴇᴄᴛᴏʀ</b>: {}
+<b>📅 ʀᴇʟᴇᴀꜱᴇ</b>: {}
+<b>⭐ ɪᴍᴅʙ</b>: {}/10 (<code>{}</code> votes)
+<b>🏷️ ɢᴇɴʀᴇꜱ</b>: {}
+<b>🔈 ᴀᴜᴅɪᴏ</b>: {}
+<b>📺 ғᴏʀᴍᴀᴛ</b>: {}
 
-<code>━━━━━━━━━━━━━━━━━━</code>
+<b>⚡ 𝖕𝖔𝖜𝖊𝖗𝖉 𝖇𝖞 @Hari_Moviez</b>
+
+<code>━━━━━━━━━━━━━━━━━━━━</code>
 
 📥 <a href='https://telegram.me/{}/?start=getfile-{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ғɪʟᴇ 👈</a>
 
-<code>━━━━━━━━━━━━━━━━━━</code>"""
+<code>━━━━━━━━━━━━━━━━━━━━━</code>"""
 
 notified_movies = set()
 media_filter = filters.document | filters.video | filters.audio
