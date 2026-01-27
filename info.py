@@ -40,12 +40,12 @@ support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1001629003283')  # Support gr
 reqst_channel = environ.get('REQST_CHANNEL_ID', '-1002170171844')  # Request channel id (make sure bot is admin)
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/hari_moviez')  # Support group link (make sure bot is admin)
 
-DATABASE_URI = environ.get('DATABASE_URI', "")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://anikush8310_db_user:pWxFAyxQ3UTlsR1X@cluster0.cmkbiq2.mongodb.net/?appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'SilentXBotz_files')
 
 # If MULTIPLE_DB Is True Then Fill DATABASE_URI2 Value Else You Will Get Error.
-MULTIPLE_DB = is_enabled(os.environ.get('MULTIPLE_DB', "True"), True) # Type True For Turn On MULTIPLE DB FUNTION 
+MULTIPLE_DB = is_enabled(os.environ.get('MULTIPLE_DB', "False"), True) # Type True For Turn On MULTIPLE DB FUNTION 
 DATABASE_URI2 = environ.get('DATABASE_URI2', "")
 DB_CHANGE_LIMIT = int(environ.get('DB_CHANGE_LIMIT', "432")) 
 
@@ -53,8 +53,8 @@ GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+nOdVKAzF-mQyYTU1') # Group link 
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/harikushal') # Owner link for the bot
 UPDATE_CHNL_LNK = environ.get('UPDATE_CHNL_LNK', 'https://t.me/+jgLqztoklls5MjRl') # Update channel link for the bot
 
-AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-100") # add multiple channels here, separated by single space
-AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '-100')
+AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1002283516790") # add multiple channels here, separated by single space
+AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '-1002235524837')
 
 IS_VERIFY = is_enabled('IS_VERIFY', True)  # Verification On (True) / Off (False)
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002238159500')) #Verification Channel Id 
