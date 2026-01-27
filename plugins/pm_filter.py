@@ -837,25 +837,45 @@ async def auto_filter(client, msg, spoll=False):
     curr_time = datetime.now(pytz.timezone('Asia/Kolkata')).time()
     if not spoll:
         message = msg
-        if message.text.startswith("/"): return
-        if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+
+        # Ignore commands and special characters
+        if message.text.startswith("/"):
             return
+        if re.findall(r"((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+            return
+
         if len(message.text) < 100:
-            search = await replace_words(message.text)		
+            search = await replace_words(message.text)      
             search = search.lower()
             search = search.replace("-", " ")
             search = search.replace(":", "")
-			search = search.replace("'", "")
+            search = search.replace("'", "")
             search = re.sub(r'\s+', ' ', search).strip()
-            m=await message.reply_text(f'<b>Wait {message.from_user.mention} Searching Your Query: <i>{search}...</i></b>', reply_to_message_id=message.id)
-            files, offset, total_results = await get_search_results(message.chat.id ,search, offset=0, filter=True)
+
+            m = await message.reply_text(
+                f'<b>Wait {message.from_user.mention} Searching Your Query: <i>{search}...</i></b>',
+                reply_to_message_id=message.id
+            )
+
+            files, offset, total_results = await get_search_results(
+                message.chat.id, search, offset=0, filter=True
+            )
             settings = await get_settings(message.chat.id)
+
             if not files:
                 if settings["spell_check"]:
-                    ai_sts = await m.edit('🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...')
-                    is_misspelled = await ai_spell_check(chat_id = message.chat.id,wrong_name=search)
+                    ai_sts = await m.edit(
+                        '🤖 ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ, ᴀɪ ɪꜱ ᴄʜᴇᴄᴋɪɴɢ ʏᴏᴜʀ ꜱᴘᴇʟʟɪɴɢ...'
+                    )
+                    is_misspelled = await ai_spell_check(
+                        chat_id=message.chat.id,
+                        wrong_name=search
+                    )
                     if is_misspelled:
-                        await ai_sts.edit(f'<b>✅Aɪ Sᴜɢɢᴇsᴛᴇᴅ ᴍᴇ<code> {is_misspelled}</code> \nSᴏ Iᴍ Sᴇᴀʀᴄʜɪɴɢ ғᴏʀ <code>{is_misspelled}</code></b>')
+                        await ai_sts.edit(
+                            f'<b>✅ Aɪ Sᴜɢɢᴇsᴛᴇᴅ ᴍᴇ <code>{is_misspelled}</code>\n'
+                            f'Sᴏ Iᴍ Sᴇᴀʀᴄʜɪɴɢ ғᴏʀ <code>{is_misspelled}</code></b>'
+                        )
                         await asyncio.sleep(2)
                         message.text = is_misspelled
                         await ai_sts.delete()
@@ -864,6 +884,7 @@ async def auto_filter(client, msg, spoll=False):
                     return await advantage_spell_chok(client, message)
         else:
             return
+
     else:
         message = msg.message.reply_to_message
         search, files, offset, total_results = spoll
