@@ -40,6 +40,7 @@ DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in enviro
 support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1001629003283')  # Support group id (make sure bot is admin)
 reqst_channel = environ.get('REQST_CHANNEL_ID', '-1002170171844')  # Request channel id (make sure bot is admin)
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/hari_moviez')  # Support group link (make sure bot is admin)
+UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/hari_moviez')
 
 DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://anikush8310_db_user:pWxFAyxQ3UTlsR1X@cluster0.cmkbiq2.mongodb.net/?appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
