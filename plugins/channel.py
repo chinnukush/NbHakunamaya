@@ -1,18 +1,24 @@
 import re
 import io
+import math
+import random
+import string
 import aiohttp
 import asyncio
 import hashlib
+import requests
 from info import *
 from utils import *
 from utils import clean_filename
 from logging_helper import LOGGER
 from typing import Dict
+from typing import Optional, Dict, Any
 from datetime import datetime
 from pyrogram import Client, filters
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ParseMode
+
 
 CAPTION_LANGUAGES = [
     "Bhojpuri", "Hindi", "Bengali", "Tamil", "English", "Bangla", "Telugu",
