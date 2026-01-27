@@ -30,24 +30,24 @@ CAPTION_LANGUAGES = [
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
 SILENTX_PREMIUM_UPDATE = """
-<blockquote>🎬 𝕻ℝ𝔼𝕄𝕀𝕌𝕄 𝕄𝕆𝕍𝕀𝔼 𝕌ℙ𝔻𝔸𝕋𝔼 🎥</blockquote>
-
 <b><u>{}</u></b> <code>#{}</code>
 
 <code>━━━━━━━━━━━━━━━━━━</code>
-<b>🔈 Audio</b>: {}
-<b>📺 Format</b>: {}
 
-<code>━━━━━━━━━━━━━━━━━━</code>
 <b>🎭 Director</b>: {}
 <b>📅 Release</b>: {}
 <b>⭐ IMDb</b>: {}/10 (<code>{}</code> votes)
 <b>🏷️ Genres</b>: {}
+<b>🔈 Audio</b>: {}
+<b>📺 Format</b>: {}
+
 <code>━━━━━━━━━━━━━━━━━━</code>
 
 📥 <a href='https://telegram.me/{}/?start=getfile-{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ғɪʟᴇ</a>
 
-<b>⚡ Powered By @Hari_Moviez</b>"""
+<b>⚡ Powered By @Hari_Moviez</b>
+
+<code>━━━━━━━━━━━━━━━━━━</code>"""
 
 notified_movies = set()
 media_filter = filters.document | filters.video | filters.audio
