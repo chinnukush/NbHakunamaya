@@ -1,7 +1,6 @@
 import re
 import io
 import aiohttp
-import asyncio
 import hashlib
 from info import *
 from utils import *
@@ -23,21 +22,16 @@ CAPTION_LANGUAGES = [
 
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
-# New caption template with separate quality entries
+# Caption template with deep links for each quality
 SILENTX_PREMIUM_UPDATE = """
 🎬 Title : {}
 📆 Year : {}
 🔊 Audio : {}
 💿 Quality : {}
 
-@{} - {} {} {} 480p x264 AAC HC-ESub CineVood.mkv
-({}) : Get File
-
-@{} - {} {} {} 720p x264 AAC HC-ESub CineVood.mkv
-({}) : Get File
-
-@{} - {} {} {} 1080p x264 AAC HC-ESub CineVood.mkv
-({}) : Get File
+🔗 <a href='https://telegram.me/{}/?start=getfile-{}-480p'>480p File ({})</a>
+🔗 <a href='https://telegram.me/{}/?start=getfile-{}-720p'>720p File ({})</a>
+🔗 <a href='https://telegram.me/{}/?start=getfile-{}-1080p'>1080p File ({})</a>
 
 〽️ Powered By @{}
 """
@@ -70,7 +64,6 @@ async def send_movie_update(bot, file_name, caption, size):
         year_match = re.search(r"\b(19|20)\d{2}\b", caption)
         year = year_match.group(0) if year_match else None      
         quality = await get_qualities(caption) or "HDRip"
-        pixel = await get_pixels(caption) or "720p"
         language = await get_languages(caption) or "Multi-Audio"      
         if file_name in notified_movies:
             return 
@@ -79,23 +72,24 @@ async def send_movie_update(bot, file_name, caption, size):
         if not tmdb_data:
             return 
 
-        director = tmdb_data.get("director", "N/A")
         title = escape_html(tmdb_data["title"])
         release_year = escape_html(tmdb_data["release_date"] or "TBA")
 
-        # Format sizes for each quality (dummy split for demo)
+        # Split file size for demo purposes (you can map actual files later)
         size_480 = format_size(size // 4)
         size_720 = format_size(size // 2)
         size_1080 = format_size(size)
+
+        search_movie = file_name.replace(" ", "-")
 
         full_caption = SILENTX_PREMIUM_UPDATE.format(
             title,
             release_year,
             escape_html(language),
             "1080p, 720p, 480p",
-            temp.U_NAME, title, release_year, language, size_480,
-            temp.U_NAME, title, release_year, language, size_720,
-            temp.U_NAME, title, release_year, language, size_1080,
+            temp.U_NAME, search_movie, size_480,
+            temp.U_NAME, search_movie, size_720,
+            temp.U_NAME, search_movie, size_1080,
             temp.U_NAME
         )        
         await send_with_visual(bot, full_caption, tmdb_data)        
@@ -171,4 +165,4 @@ async def get_qualities(text):
 async def get_pixels(caption):
     pixels = ["480p", "480p HEVC", "720p", "720p HEVC", "1080p", "1080p HEVC", "2160p", "2K", "4K"]
     return ", ".join([p for p in pixels if p.lower() in caption.lower()])
-                        
+    
