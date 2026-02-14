@@ -1,24 +1,18 @@
 import re
 import io
-import math
-import random
-import string
 import aiohttp
 import asyncio
 import hashlib
-import requests
 from info import *
 from utils import *
 from utils import clean_filename
 from logging_helper import LOGGER
 from typing import Dict
-from typing import Optional, Dict, Any
 from datetime import datetime
 from pyrogram import Client, filters
 from database.ia_filterdb import save_file
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ParseMode
-
 
 CAPTION_LANGUAGES = [
     "Bhojpuri", "Hindi", "Bengali", "Tamil", "English", "Bangla", "Telugu",
@@ -29,23 +23,24 @@ CAPTION_LANGUAGES = [
 
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
+# New caption template with separate quality entries
 SILENTX_PREMIUM_UPDATE = """
+🎬 Title : {}
+📆 Year : {}
+🔊 Audio : {}
+💿 Quality : {}
 
-<b>🎬 ᴛɪᴛʟᴇ</b>: {}  <code>{}</code>
-<b>🎭 ᴅɪʀᴇᴄᴛᴏʀ</b>: {}
-<b>📅 ʀᴇʟᴇᴀꜱᴇ</b>: {}
-<b>⭐ ɪᴍᴅʙ</b>: {}/10 (<code>{}</code> votes)
-<b>🏷️ ɢᴇɴʀᴇꜱ</b>: {}
-<b>🔈 ᴀᴜᴅɪᴏ</b>: {}
-<b>📺 ғᴏʀᴍᴀᴛ</b>: {}
+@{} - {} {} {} 480p x264 AAC HC-ESub CineVood.mkv
+({}) : Get File
 
-<b>⚡ 𝖕𝖔𝖜𝖊𝖗𝖉 𝖇𝖞 @Hari_Moviez</b>
+@{} - {} {} {} 720p x264 AAC HC-ESub CineVood.mkv
+({}) : Get File
 
-<code>━━━━━━━━━━━━━━━━━━━━</code>
+@{} - {} {} {} 1080p x264 AAC HC-ESub CineVood.mkv
+({}) : Get File
 
-📥 <a href='https://telegram.me/{}/?start=getfile-{}'>ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ɢᴇᴛ ғɪʟᴇ 👈</a>
-
-<code>━━━━━━━━━━━━━━━━━━━━━</code>"""
+〽️ Powered By @{}
+"""
 
 notified_movies = set()
 media_filter = filters.document | filters.video | filters.audio
@@ -63,23 +58,17 @@ async def media(bot, message):
     success, silentxbotz = await save_file(media)
     try:  
         if success and silentxbotz == 1 and await get_status(bot.me.id):            
-            await send_movie_update(bot, file_name=media.file_name, caption=media.caption)
+            await send_movie_update(bot, file_name=media.file_name, caption=media.caption, size=media.file_size)
     except Exception as e:
         LOGGER.error(f"Error In Movie Update - {e}")
         pass
 
-async def send_movie_update(bot, file_name, caption):
+async def send_movie_update(bot, file_name, caption, size):
     try:
         file_name = clean_filename(file_name)
         caption = clean_filename(caption)
         year_match = re.search(r"\b(19|20)\d{2}\b", caption)
         year = year_match.group(0) if year_match else None      
-        season_match = re.search(r"(?i)(?:s|season)0*(\d{1,2})", caption) or re.search(r"(?i)(?:s|season)0*(\d{1,2})", file_name)
-        if year:
-            file_name = file_name[:file_name.find(year) + 4]
-        elif season_match:
-            season = season_match.group(1)
-            file_name = file_name[:file_name.find(season) + 1]
         quality = await get_qualities(caption) or "HDRip"
         pixel = await get_pixels(caption) or "720p"
         language = await get_languages(caption) or "Multi-Audio"      
@@ -87,26 +76,27 @@ async def send_movie_update(bot, file_name, caption):
             return 
         notified_movies.add(file_name)      
         tmdb_data = await fetch_tmdb_data(file_name, year)
-        search_movie = file_name.replace(" ", "-")
         if not tmdb_data:
             return 
 
-        director = tmdb_data.get("director", "")
-        if not director or not director.strip():
-            director = "N/A"
-            
+        director = tmdb_data.get("director", "N/A")
+        title = escape_html(tmdb_data["title"])
+        release_year = escape_html(tmdb_data["release_date"] or "TBA")
+
+        # Format sizes for each quality (dummy split for demo)
+        size_480 = format_size(size // 4)
+        size_720 = format_size(size // 2)
+        size_1080 = format_size(size)
+
         full_caption = SILENTX_PREMIUM_UPDATE.format(
-            escape_html(tmdb_data["title"]),
-            tmdb_data["kind"],
+            title,
+            release_year,
             escape_html(language),
-            "MKV" if "mkv" in file_name.lower() else "MP4",
-            escape_html(director),
-            escape_html(tmdb_data["release_date"] or "TBA"),
-            tmdb_data["vote_average"],
-            tmdb_data["vote_count"],
-            escape_html(", ".join(tmdb_data["genres"][:3])),
-            temp.U_NAME,
-            search_movie
+            "1080p, 720p, 480p",
+            temp.U_NAME, title, release_year, language, size_480,
+            temp.U_NAME, title, release_year, language, size_720,
+            temp.U_NAME, title, release_year, language, size_1080,
+            temp.U_NAME
         )        
         await send_with_visual(bot, full_caption, tmdb_data)        
     except Exception as e:
@@ -116,6 +106,14 @@ def escape_html(text: str) -> str:
     if not text:
         return ""
     return str(text).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+def format_size(size_bytes: int) -> str:
+    if size_bytes < 1024 * 1024:
+        return f"{size_bytes/1024:.2f}KB"
+    elif size_bytes < 1024 * 1024 * 1024:
+        return f"{size_bytes/(1024*1024):.2f}MB"
+    else:
+        return f"{size_bytes/(1024*1024*1024):.2f}GB"
 
 def get_trailer_button(tmdb_data: Dict) -> list:
     videos = tmdb_data.get("videos", [])
@@ -167,10 +165,10 @@ async def get_languages(text: str) -> str:
     return ", ".join(found_langs[:2]) if found_langs else "Multi-Audio"
 
 async def get_qualities(text): 
-    qualities = ["ORG", "org", "hdcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", "camrip", "WEB-DL", "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts"]
+    qualities = ["ORG", "hdcam", "HDCAM", "HQ", "HDRip", "camrip", "WEB-DL", "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts"]
     return ", ".join([q for q in qualities if q.lower() in text.lower()])
 
 async def get_pixels(caption):
     pixels = ["480p", "480p HEVC", "720p", "720p HEVC", "1080p", "1080p HEVC", "2160p", "2K", "4K"]
     return ", ".join([p for p in pixels if p.lower() in caption.lower()])
-    
+                        
