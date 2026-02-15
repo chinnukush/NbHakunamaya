@@ -51,9 +51,9 @@ MULTIPLE_DB = is_enabled(os.environ.get('MULTIPLE_DB', "True"), True) # Type Tru
 DATABASE_URI2 = environ.get('DATABASE_URI2', "mongodb+srv://anikush8310_db_user:mIE1xcFcYComgN04@cluster0.32kt1j6.mongodb.net/?appName=Cluster0")
 DB_CHANGE_LIMIT = int(environ.get('DB_CHANGE_LIMIT', "432")) 
 
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+nOdVKAzF-mQyYTU1') # Group link for the bot
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+F1OsjGWNu9I3OTll') # Group link for the bot
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/harikushal') # Owner link for the bot
-UPDATE_CHNL_LNK = environ.get('UPDATE_CHNL_LNK', 'https://t.me/+jgLqztoklls5MjRl') # Update channel link for the bot
+UPDATE_CHNL_LNK = environ.get('UPDATE_CHNL_LNK', 'https://t.me/+W5TUbIdPdQo3MGJl') # Update channel link for the bot
 
 AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1002283516790") # add multiple channels here, separated by single space
 AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '-1002283516790')
