@@ -37,8 +37,8 @@ BIN_CHANNEL = int(environ.get('BIN_CHANNEL', '-1002210651858'))  # Bin channel i
 MOVIE_UPDATE_CHANNEL = int(environ.get('MOVIE_UPDATE_CHANNEL', '-1002312299520'))  
 PREMIUM_LOGS = int(environ.get('PREMIUM_LOGS', '-1002238159500'))  # Premium logs channel id
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-100').split()] #(make sure bot is admin)
-support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1001629003283')  # Support group id (make sure bot is admin)
-reqst_channel = environ.get('REQST_CHANNEL_ID', '-1002170171844')  # Request channel id (make sure bot is admin)
+SUPPORT_CHAT_ID = environ.get('SUPPORT_CHAT_ID', '-1001629003283')  # Support group id (make sure bot is admin)
+REQST_CHANNEL = environ.get('REQST_CHANNEL_ID', '-1002170171844')  # Request channel id (make sure bot is admin)
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'https://t.me/hari_moviez')  # Support group link (make sure bot is admin)
 UPDATE_CHANNEL_LNK = environ.get('UPDATE_CHANNEL_LNK', 'https://t.me/hari_moviez')
 
