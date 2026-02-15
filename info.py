@@ -55,7 +55,7 @@ GRP_LNK = environ.get('GRP_LNK', 'https://t.me/+F1OsjGWNu9I3OTll') # Group link 
 OWNER_LNK = environ.get('OWNER_LNK', 'https://t.me/harikushal') # Owner link for the bot
 UPDATE_CHNL_LNK = environ.get('UPDATE_CHNL_LNK', 'https://t.me/+W5TUbIdPdQo3MGJl') # Update channel link for the bot
 
-AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1002283516790") # add multiple channels here, separated by single space
+AUTH_CHANNEL = environ.get("AUTH_CHANNEL", "-1002283516790 -1002440757122") # add multiple channels here, separated by single space
 AUTH_REQ_CHANNEL = environ.get('AUTH_REQ_CHANNEL', '-1002283516790')
 
 IS_VERIFY = is_enabled('IS_VERIFY', True)  # Verification On (True) / Off (False)
