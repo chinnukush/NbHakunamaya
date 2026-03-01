@@ -31,12 +31,13 @@ DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
 SILENTX_PREMIUM_UPDATE = """
 
-<b>🎬 ᴛɪᴛʟᴇ</b> : {}  <code>{}</code>
-<b>🔈 ʟᴀɴɢᴜᴀɢᴇ</b> : {}
-<b>⭐ ɪᴍᴅʙ</b>: {}/10 (<code>{}</code> votes)
-<b>🏷️ ɢᴇɴʀᴇꜱ</b>: {}
-<b>🔈 ᴀᴜᴅɪᴏ</b>: {}
-<b>📺 ɢᴇɴʀᴇꜱ</b>: {}
+<b>🎬 ᴛɪᴛʟᴇ : {} <code>#{}</code>
+<b>🔈 ᴀᴜᴅɪᴏ</b> : {}
+<b>📺 ғᴏʀᴍᴀᴛ</b> : {}
+<b>🎭 ᴅɪʀᴇᴄᴛᴏʀ</b> : {}
+<b>📅 ʀᴇʟᴇᴀꜱᴇ</b> : {}
+<b>⭐ ɪᴍᴅʙ</b> : {}/10 (<code>{}</code> votes)
+<b>🏷️ ɢᴇɴʀᴇꜱ</b> : {}
 
 <b>⚡ 𝖕𝖔𝖜𝖊𝖗𝖉 𝖇𝖞 @Hari_Moviez</b>
 
