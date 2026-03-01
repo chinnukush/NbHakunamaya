@@ -29,7 +29,7 @@ CAPTION_LANGUAGES = [
 
 DEFAULT_IMAGE_URL = "https://te.legra.ph/file/88d845b4f8a024a71465d.jpg"
 
-SILENTX_PREMIUM_UPDATE = """
+SILENTX_PREMIUM_UPDATE = """<blockquote>🎬 𝖕𝖗𝖊𝖒𝖎𝖚𝖒 𝖒𝖔𝖛𝖎𝖊 𝖚𝖕𝖉𝖆𝖙𝖊 🎥</blockquote>
 
 <b>🎬 ᴛɪᴛʟᴇ : {} <code>#{}</code>
 <b>🔈 ᴀᴜᴅɪᴏ</b> : {}
